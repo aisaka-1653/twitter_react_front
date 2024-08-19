@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupFormSchema } from "@/utils/formSchema";
@@ -5,7 +6,6 @@ import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import { Button } from "../../ui/button";
 import { CustomFormField } from "@/components/molecules/CustomFormField";
-
 
 type InputProps = z.input<typeof signupFormSchema>;
 type OutputProps = z.output<typeof signupFormSchema>;
@@ -16,8 +16,11 @@ export const SignupForm = () => {
     resolver: zodResolver(signupFormSchema),
   });
 
-  const onSubmit = (data: OutputProps) => {
-    console.log(data);
+  const onSubmit = (user: OutputProps) => {
+    axios
+      .post(import.meta.env.VITE_API_URL + "users", user)
+      .then((res) => console.log(res))
+      .catch((e) => console.error(e));
   };
 
   return (

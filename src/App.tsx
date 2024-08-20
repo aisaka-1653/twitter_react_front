@@ -1,10 +1,13 @@
-import { Root } from "./components/pages/Signup";
+import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./components/theme-provider";
+import { Router } from "./router/Router";
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Root />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

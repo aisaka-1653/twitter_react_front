@@ -26,6 +26,7 @@ export const CustomFormField: React.FC<CustomFormFieldProps> = ({
   type = "text",
 }) => (
   <FormField
+    defaultValue=""
     control={control}
     name={name}
     render={({ field }) => (

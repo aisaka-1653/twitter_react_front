@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupFormSchema } from "@/utils/formSchema";
@@ -6,21 +5,22 @@ import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import { Button } from "../../ui/button";
 import { CustomFormField } from "@/components/molecules/CustomFormField";
+import { useCreateUser } from "@/hooks/useCreateUser";
+import { Loader2 } from "lucide-react";
 
 type InputProps = z.input<typeof signupFormSchema>;
 type OutputProps = z.output<typeof signupFormSchema>;
 
 export const SignupForm = () => {
+  const [createUser, isLoading] = useCreateUser();
+
   const form = useForm<InputProps, unknown, OutputProps>({
     mode: "onChange",
     resolver: zodResolver(signupFormSchema),
   });
 
   const onSubmit = (user: OutputProps) => {
-    axios
-      .post(import.meta.env.VITE_API_URL + "users", user)
-      .then((res) => console.log(res))
-      .catch((e) => console.error(e));
+    createUser(user);
   };
 
   return (
@@ -64,8 +64,16 @@ export const SignupForm = () => {
         <Button
           type="submit"
           className="w-full h-12 rounded-full text-base font-bold"
+          disabled={isLoading || !form.formState.isValid}
         >
-          作成する
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <span>Please Wait</span>
+            </>
+          ) : (
+            "作成する"
+          )}
         </Button>
       </form>
     </Form>

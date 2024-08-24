@@ -8,7 +8,7 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <BrowserRouter>
         <Router />
-        <Toaster />
+        <Toaster expand visibleToasts={3} />
       </BrowserRouter>
     </ThemeProvider>
   );

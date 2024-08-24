@@ -17,6 +17,15 @@ export const SignupForm = () => {
   const form = useForm<InputProps, unknown, OutputProps>({
     mode: "onChange",
     resolver: zodResolver(signupFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      display_name: "",
+      username: "",
+      birth_year: "",
+      birth_month: "",
+      birth_day: "",
+    },
   });
 
   const onSubmit = (user: OutputProps) => {

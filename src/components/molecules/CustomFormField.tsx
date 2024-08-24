@@ -1,5 +1,3 @@
-import { signupFormSchema } from "@/utils/formSchema";
-import { z } from "zod";
 import {
   FormControl,
   FormField,
@@ -8,25 +6,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "../ui/input";
-import { Control } from "react-hook-form";
+import { Control, FieldPath, FieldValues } from "react-hook-form";
 
-type InputProps = z.input<typeof signupFormSchema>;
-
-interface CustomFormFieldProps {
-  control: Control<InputProps>;
-  name: keyof InputProps;
+type FormFieldProps<T extends FieldValues> = {
+  control: Control<T>;
+  name: FieldPath<T>;
   label: string;
   type?: string;
-}
+};
 
-export const CustomFormField: React.FC<CustomFormFieldProps> = ({
+export const CustomFormField = <T extends FieldValues>({
   control,
   name,
   label,
   type = "text",
-}) => (
+}: FormFieldProps<T>) => (
   <FormField
-    defaultValue=""
     control={control}
     name={name}
     render={({ field }) => (

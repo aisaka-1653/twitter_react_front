@@ -1,12 +1,12 @@
 import { Login } from "@/components/pages/Login";
 import { Signup } from "@/components/pages/Signup";
-import { CenteredContentLayout } from "@/components/templates/CenteredContentLayout";
+import { AuthLayout } from "@/components/templates/AuthLayout";
 import { Route, Routes } from "react-router-dom";
 
 export const Router = () => {
   return (
     <Routes>
-      <Route element={<CenteredContentLayout />}>
+      <Route element={<AuthLayout />}>
         <Route path="users/signup" element={<Signup />} />
         <Route path="users/login" element={<Login />} />
       </Route>

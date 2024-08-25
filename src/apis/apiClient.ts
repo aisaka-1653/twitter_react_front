@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import { removeAuthTokens, saveAuthTokens, setAuthHeaders } from "@/utils/auth";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "sonner";
 
 type ApiErrorResponse = {
@@ -15,8 +16,23 @@ const apiClient = axios.create({
   },
 });
 
+apiClient.interceptors.request.use(setAuthHeaders, (error) =>
+  Promise.reject(error)
+);
+
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response: AxiosResponse) => {
+    const newTokens = {
+      "access-token": response.headers["access-token"],
+      client: response.headers["client"],
+      uid: response.headers["uid"],
+    };
+    if (newTokens["access-token"]) {
+      saveAuthTokens(newTokens);
+    }
+
+    return response;
+  },
   (error: AxiosError<ApiErrorResponse>) => {
     if (error.response) {
       const status = error.response.status;
@@ -24,6 +40,7 @@ apiClient.interceptors.response.use(
       switch (status) {
         case 401:
           toast.error("認証エラーが発生しました｡再度ログインしてください｡");
+          removeAuthTokens();
           break;
         case 403:
           toast.error("アクセス権限がありません｡");

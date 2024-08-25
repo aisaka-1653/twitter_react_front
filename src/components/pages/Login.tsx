@@ -1,3 +1,11 @@
+import { AuthHeader } from "../molecules/AuthHeader";
+import { LoginForm } from "../orgranisms/form/LoginForm";
+
 export const Login = () => {
-  return <div>Login</div>;
+  return (
+    <>
+      <AuthHeader>Xにログイン</AuthHeader>
+      <LoginForm />
+    </>
+  );
 };

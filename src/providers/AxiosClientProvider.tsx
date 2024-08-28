@@ -3,6 +3,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { toast } from "sonner";
 import { ReactElement, useEffect } from "react";
 import apiClient from "@/apis/apiClient";
+import { useNavigate } from "react-router-dom";
 
 type ApiErrorResponse = {
   errors: {
@@ -16,6 +17,8 @@ export const AxiosClientProvider = ({
 }: {
   children: ReactElement;
 }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const requestInterceptors = apiClient.interceptors.request.use(
       setAuthHeaders,
@@ -42,6 +45,7 @@ export const AxiosClientProvider = ({
             case 401:
               toast.error("認証エラーが発生しました｡再度ログインしてください｡");
               removeAuthTokens();
+              navigate("/users/login");
               break;
             case 403:
               toast.error("アクセス権限がありません｡");

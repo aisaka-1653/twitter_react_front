@@ -42,3 +42,8 @@ export const signupFormSchema = z
       `${birth_year}-${birth_month.padStart(2, "0")}-${birth_day.padStart(2, "0")}`
     ).toISOString(),
   }));
+
+export const loginFormSchema = z.object({
+  email: z.string().email("有効なメールアドレスを入力してください"),
+  password: z.string().min(6, "パスワードは6文字以上で入力してください"),
+});

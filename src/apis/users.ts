@@ -1,6 +1,6 @@
 import apiClient from "./apiClient";
 import { z } from "zod";
-import { loginFormSchema, signupFormSchema } from "@/utils/formSchema";
+import { loginFormSchema, signupFormSchema } from "@/utils/schema/formSchema";
 import { AxiosResponse } from "axios";
 
 type CreateUserProps = z.output<typeof signupFormSchema>;

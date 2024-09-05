@@ -1,4 +1,4 @@
-import { loginFormSchema } from "@/utils/formSchema";
+import { loginFormSchema } from "@/utils/schema/formSchema";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { login as loginAPI } from "@/apis/users";

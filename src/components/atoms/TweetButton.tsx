@@ -1,12 +1,17 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { Button } from "../ui/button";
 
 type TweetButtonProps = {
   isDisabled: boolean;
   onClick?: () => void;
+  children: ReactNode;
 };
 
-export const TweetButton: FC<TweetButtonProps> = ({ isDisabled, onClick }) => (
+export const TweetButton: FC<TweetButtonProps> = ({
+  isDisabled,
+  onClick,
+  children,
+}) => (
   <Button
     type={onClick ? "button" : "submit"}
     size="full"
@@ -14,6 +19,6 @@ export const TweetButton: FC<TweetButtonProps> = ({ isDisabled, onClick }) => (
     disabled={isDisabled}
     onClick={onClick}
   >
-    ツイートする
+    {children}
   </Button>
 );

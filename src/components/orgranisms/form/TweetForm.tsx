@@ -7,22 +7,19 @@ import {
 } from "@/utils/schema/tweetFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
-import { FC } from "react";
 import { TweetFormContent } from "@/components/molecules/TweetFormContent";
+import { useTweet } from "@/hooks/useTweet";
 
-type TweetFormProps = {
-  placeholder: string;
-  onSubmit: (tweet: TweetFormSchema) => Promise<void>;
-};
+export const TweetForm = () => {
+  const [createTweet, isLoading] = useTweet();
 
-export const TweetForm: FC<TweetFormProps> = ({ placeholder, onSubmit }) => {
   const form = useForm<TweetFormSchema>({
     resolver: zodResolver(tweetFormSchema),
     defaultValues: { content: "" },
   });
 
   const handleSubmit = async (data: TweetFormSchema) => {
-    await onSubmit(data);
+    await createTweet(data);
     form.reset();
   };
 
@@ -35,8 +32,8 @@ export const TweetForm: FC<TweetFormProps> = ({ placeholder, onSubmit }) => {
               <UserAvatar url="https://github.com/shadcn.png" />
             </div>
             <div className="flex flex-col size-full max-w-[518px] gap-3 pt-2">
-              <TweetFormContent placeholder={placeholder} />
-              <TweetFormFooter />
+              <TweetFormContent placeholder="いまどうしてる?" />
+              <TweetFormFooter isLoading={isLoading} />
             </div>
           </div>
         </form>

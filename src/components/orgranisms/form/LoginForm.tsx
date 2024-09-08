@@ -5,13 +5,13 @@ import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import { Button } from "../../ui/button";
 import { CustomFormField } from "@/components/molecules/CustomFormField";
-import { useLogin } from "@/hooks/useLogin";
+import { useAuth } from "@/hooks/useAuth";
 import { Loader2 } from "lucide-react";
 
 type LoginFormProps = z.infer<typeof loginFormSchema>;
 
 export const LoginForm = () => {
-  const [login, isLoading] = useLogin();
+  const { login, isLoading } = useAuth();
 
   const form = useForm<LoginFormProps>({
     mode: "onChange",

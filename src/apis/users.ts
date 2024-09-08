@@ -13,3 +13,7 @@ export const createUser = async (user: CreateUserProps): Promise<void> => {
 export const login = async (user: LoginProps): Promise<AxiosResponse> => {
   return apiClient.post("/users/sign_in", user);
 };
+
+export const logout = async (): Promise<AxiosResponse> => {
+  return apiClient.delete("/users/sign_out");
+};

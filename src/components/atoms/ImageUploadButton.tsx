@@ -20,9 +20,9 @@ export const ImageUploadButton: FC<ImageUploadButtonProps> = ({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      onFileChange(file);
-    }
+    if (file) onFileChange(file);
+    if (!fileInputRef.current) return;
+    fileInputRef.current.value = "";
   };
 
   return (
@@ -42,7 +42,7 @@ export const ImageUploadButton: FC<ImageUploadButtonProps> = ({
         className="text-blue-300"
         onClick={handleImageClick}
       >
-        <Image className="h-4 w-4" />
+        <Image className="h-5 w-5" />
       </Button>
     </>
   );

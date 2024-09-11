@@ -3,11 +3,20 @@ import { TweetButton } from "../atoms/TweetButton";
 import { ImageUploadButton } from "../atoms/ImageUploadButton";
 import { Loader2 } from "lucide-react";
 
-export const TweetFormFooter = ({ isLoading }: { isLoading: boolean }) => {
+type TweetFormFooterProps = {
+  isLoading: boolean;
+  createImageUrl: (image: File) => void;
+};
+
+export const TweetFormFooter = ({
+  isLoading,
+  createImageUrl,
+}: TweetFormFooterProps) => {
   const { register, setValue, formState } = useFormContext();
 
   const handleFileChange = (file: File) => {
     setValue("image", file, { shouldValidate: true });
+    createImageUrl(file);
   };
 
   return (

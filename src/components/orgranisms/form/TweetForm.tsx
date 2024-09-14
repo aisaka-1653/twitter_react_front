@@ -11,10 +11,12 @@ import { TweetFormContent } from "@/components/molecules/TweetFormContent";
 import { useTweet } from "@/hooks/useTweet";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { ImagePreview } from "../ImagePreview";
+import { useUser } from "@/hooks/useUser";
 
 export const TweetForm = () => {
   const [createTweet, isLoading] = useTweet();
   const { imageUrl, createImageUrl, deleteImageUrl } = useImageUrl();
+  const { user } = useUser();
 
   const form = useForm<TweetFormSchema>({
     resolver: zodResolver(tweetFormSchema),
@@ -33,7 +35,7 @@ export const TweetForm = () => {
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
           <div className="flex w-[598px] px-4 gap-2">
             <div className="pt-1">
-              <UserAvatar url="https://github.com/shadcn.png" />
+              <UserAvatar url={user?.avatar_url} />
             </div>
             <div className="flex flex-col size-full gap-3 pt-2">
               <TweetFormContent placeholder="いまどうしてる?" />

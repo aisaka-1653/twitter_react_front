@@ -3,12 +3,12 @@ import { FC } from "react";
 import { Button } from "../ui/button";
 
 type Props = {
-  url: string;
+  url: string | undefined;
 };
 
 export const UserAvatar: FC<Props> = ({ url }) => {
   return (
-    <Button variant="circle" size="icon">
+    <Button type="button" variant="circle" size="icon">
       <Avatar>
         <AvatarImage src={url} />
       </Avatar>

@@ -1,17 +1,23 @@
+import { User } from "@/types/user";
 import { create } from "zustand";
-
-type User = {
-  id: number;
-};
+import { persist, createJSONStorage } from "zustand/middleware";
 
 type UserState = {
-  user: User | null;
+  userId: number | null;
   setUser: (user: User) => void;
   removeUser: () => void;
 };
 
-export const useUserStore = create<UserState>()((set) => ({
-  user: null,
-  setUser: (user: User) => set({ user: { id: user.id } }),
-  removeUser: () => set({ user: null }),
-}));
+export const useUserStore = create(
+  persist<UserState>(
+    (set) => ({
+      userId: null,
+      setUser: (user: User) => set({ userId: user.id }),
+      removeUser: () => set({ userId: null }),
+    }),
+    {
+      name: "user-id",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);

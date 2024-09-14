@@ -8,7 +8,7 @@ type TweetReturn = [
   boolean,
 ];
 
-export const useTweet = (): TweetReturn => {
+export const useCreateTweet = (): TweetReturn => {
   const [isLoading, setIsLoading] = useState(false);
 
   const createFormData = (tweet_id: number, image: File) => {

@@ -8,13 +8,13 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { TweetFormContent } from "@/components/molecules/TweetFormContent";
-import { useTweet } from "@/hooks/useTweet";
+import { useCreateTweet } from "@/hooks/useCreateTweet";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { ImagePreview } from "../ImagePreview";
 import { useUser } from "@/hooks/useUser";
 
 export const TweetForm = () => {
-  const [createTweet, isLoading] = useTweet();
+  const [createTweet, isLoading] = useCreateTweet();
   const { imageUrl, createImageUrl, deleteImageUrl } = useImageUrl();
   const { user } = useUser();
 

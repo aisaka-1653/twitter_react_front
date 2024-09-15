@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signupFormSchema } from "@/utils/formSchema";
+import { signupFormSchema } from "@/utils/schema/formSchema";
 import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import { Button } from "../../ui/button";

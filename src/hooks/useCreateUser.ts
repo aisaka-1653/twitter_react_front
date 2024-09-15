@@ -1,4 +1,4 @@
-import { signupFormSchema } from "@/utils/formSchema";
+import { signupFormSchema } from "@/utils/schema/formSchema";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { createUser as createUserAPI } from "@/apis/users";

@@ -1,11 +1,14 @@
-import apiClient from "@/apis/apiClient";
+import { TweetForm } from "../orgranisms/form/TweetForm";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "../ui/button";
 
 export const Home = () => {
+  const { logout } = useAuth();
+
   return (
     <div>
-      <h2>ツイート一覧画面</h2>
-      <Button onClick={() => apiClient.get("/tweets")}>test</Button>
+      <TweetForm />
+      <Button onClick={logout}>仮ログアウト</Button>
     </div>
   );
 };

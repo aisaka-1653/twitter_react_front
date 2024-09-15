@@ -1,7 +1,7 @@
 import { removeAuthTokens, saveAuthTokens, setAuthHeaders } from "@/utils/auth";
 import { AxiosError, AxiosResponse } from "axios";
 import { toast } from "sonner";
-import { ReactElement, useEffect } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import apiClient from "@/apis/apiClient";
 import { useNavigate } from "react-router-dom";
 
@@ -12,12 +12,15 @@ type ApiErrorResponse = {
   };
 };
 
-export const AxiosClientProvider = ({
-  children,
-}: {
+type AxiosClientProviderProps = {
   children: ReactElement;
+};
+
+export const AxiosClientProvider: FC<AxiosClientProviderProps> = ({
+  children,
 }) => {
   const navigate = useNavigate();
+  const [isInterceptorSet, setIsInterceptorSet] = useState(false);
 
   useEffect(() => {
     const requestInterceptors = apiClient.interceptors.request.use(
@@ -75,10 +78,18 @@ export const AxiosClientProvider = ({
         return Promise.reject(error);
       }
     );
+
+    setIsInterceptorSet(true);
+
     return () => {
       apiClient.interceptors.request.eject(requestInterceptors);
       apiClient.interceptors.response.eject(responseInterceptors);
     };
   }, []);
+
+  if (!isInterceptorSet) {
+    return null;
+  }
+
   return <>{children}</>;
 };

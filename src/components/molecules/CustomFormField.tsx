@@ -8,19 +8,16 @@ import {
 import { Input } from "../ui/input";
 import { Control, FieldPath, FieldValues } from "react-hook-form";
 
-type FormFieldProps<T extends FieldValues> = {
+type CustomFormFieldProps<T extends FieldValues> = {
   control: Control<T>;
   name: FieldPath<T>;
   label: string;
   type?: string;
 };
 
-export const CustomFormField = <T extends FieldValues>({
-  control,
-  name,
-  label,
-  type = "text",
-}: FormFieldProps<T>) => (
+export const CustomFormField: <T extends FieldValues>(
+  props: CustomFormFieldProps<T>
+) => React.ReactElement = ({ control, name, label, type = "text" }) => (
   <FormField
     control={control}
     name={name}

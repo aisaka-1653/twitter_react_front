@@ -2,16 +2,17 @@ import { useFormContext } from "react-hook-form";
 import { TweetButton } from "../atoms/TweetButton";
 import { ImageUploadButton } from "../atoms/ImageUploadButton";
 import { Loader2 } from "lucide-react";
+import { FC } from "react";
 
 type TweetFormFooterProps = {
   isLoading: boolean;
   createImageUrl: (image: File) => void;
 };
 
-export const TweetFormFooter = ({
+export const TweetFormFooter: FC<TweetFormFooterProps> = ({
   isLoading,
   createImageUrl,
-}: TweetFormFooterProps) => {
+}) => {
   const { register, setValue, formState } = useFormContext();
 
   const handleFileChange = (file: File) => {

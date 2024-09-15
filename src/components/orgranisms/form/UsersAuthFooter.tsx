@@ -1,8 +1,7 @@
 import { CustomLink } from "@/components/atoms/CustomLink";
-import { FC } from "react";
 import { useLocation } from "react-router-dom";
 
-export const UserAuthFooter: FC = () => {
+export const UserAuthFooter = () => {
   const location = useLocation();
 
   return (

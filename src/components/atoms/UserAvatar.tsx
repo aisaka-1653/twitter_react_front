@@ -1,16 +1,25 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { FC } from "react";
+import { User } from "@/types/user";
 import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
 
 type UserAvatarProps = {
-  url: string | undefined;
+  user: User | undefined;
 };
 
-export const UserAvatar: FC<UserAvatarProps> = ({ url }) => {
+export const UserAvatar: FC<UserAvatarProps> = ({ user }) => {
+  const navigate = useNavigate();
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(`/users/${user?.id}`);
+  };
+
   return (
-    <Button type="button" variant="circle" size="icon">
+    <Button variant="circle" size="icon" onClick={handleClick}>
       <Avatar>
-        <AvatarImage src={url} />
+        <AvatarImage src={user?.avatar_url} />
       </Avatar>
     </Button>
   );

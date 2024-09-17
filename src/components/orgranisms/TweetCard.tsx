@@ -14,13 +14,11 @@ type TweetCardProps = {
 export const TweetCard: FC<TweetCardProps> = ({ tweet }) => {
   return (
     <Link to={`/tweets/${tweet.id}`}>
-      <Card className="border-b-[1px] border-slate-600 hover:bg-accent/30">
+      <Card className="cursor-pointer border-b-[1px] border-slate-600 hover:bg-accent/30">
         <CardContent className="px-4 pt-3">
           <div className="flex gap-2">
             <div className="pt-1">
-              <Link to={`/users/${tweet.user.id}`}>
-                <UserAvatar url={tweet.user.avatar_url} />
-              </Link>
+              <UserAvatar user={tweet.user} />
             </div>
             <div className="flex flex-col size-full">
               <TweetCardHeader user={tweet.user} />

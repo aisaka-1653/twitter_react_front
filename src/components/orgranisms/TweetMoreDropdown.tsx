@@ -14,6 +14,10 @@ type TweetMoreDropdownProps = {
 };
 
 export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({ user }) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="text-muted-foreground focus-visible:outline-none">
@@ -21,7 +25,7 @@ export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({ user }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="rounded-xl shadow-md shadow-white">
         <DropdownMenuItem className="px-4 py-3 hover:bg-accent hover:text-accent-foreground cursor-pointer">
-          <Button variant="ghost" className="p-0 h-5">
+          <Button variant="ghost" className="p-0 h-5" onClick={handleClick}>
             <UserX className="h-5 w-5 mr-3" />
             <span className="font-bold">
               {`@${user.username}さんをフォロー`}

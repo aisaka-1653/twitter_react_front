@@ -38,7 +38,7 @@ export const TweetForm = () => {
         >
           <div className="flex px-4 gap-2">
             <div className="pt-1">
-              <UserAvatar url={user?.avatar_url} />
+              <UserAvatar user={user} />
             </div>
             <div className="flex flex-col size-full gap-3 pt-2">
               <TweetFormContent placeholder="いまどうしてる?" />

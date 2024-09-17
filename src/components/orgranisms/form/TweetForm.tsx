@@ -32,8 +32,11 @@ export const TweetForm = () => {
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-          <div className="flex w-[598px] px-4 gap-2">
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="pt-3 pb-2 border-b-[1px] border-slate-600"
+        >
+          <div className="flex px-4 gap-2">
             <div className="pt-1">
               <UserAvatar url={user?.avatar_url} />
             </div>

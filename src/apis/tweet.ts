@@ -16,7 +16,3 @@ export const tweetImage = async (formData: FormData): Promise<AxiosResponse> => 
     },
   });
 };
-
-export const getTweets = async (): Promise<AxiosResponse> => {
-  return apiClient.get("/tweets");
-};

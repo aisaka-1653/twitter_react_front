@@ -11,9 +11,9 @@ export const Router = () => {
       <Route element={<ThreeColumnLayout />}>
         <Route path="home" element={<Home />} />
       </Route>
-      <Route element={<AuthLayout />}>
-        <Route path="users/signup" element={<Signup />} />
-        <Route path="users/login" element={<Login />} />
+      <Route path="users" element={<AuthLayout />}>
+        <Route path="signup" element={<Signup />} />
+        <Route path="login" element={<Login />} />
       </Route>
     </Routes>
   );

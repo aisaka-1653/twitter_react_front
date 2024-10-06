@@ -11,12 +11,12 @@ import { TweetFormContent } from "@/components/molecules/TweetFormContent";
 import { useCreateTweet } from "@/hooks/useCreateTweet";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { ImagePreview } from "../ImagePreview";
-import { useUser } from "@/hooks/useUser";
+import { useCurrentUser } from "@/hooks/uesCurrentUser";
 
 export const TweetForm = () => {
   const [createTweet, isLoading] = useCreateTweet();
   const { imageUrl, createImageUrl, deleteImageUrl } = useImageUrl();
-  const { user } = useUser();
+  const { currentUser } = useCurrentUser();
 
   const form = useForm<TweetFormSchema>({
     resolver: zodResolver(tweetFormSchema),
@@ -38,7 +38,7 @@ export const TweetForm = () => {
         >
           <div className="flex px-4 gap-2">
             <div className="pt-1">
-              <UserAvatar user={user} />
+              <UserAvatar user={currentUser} />
             </div>
             <div className="flex flex-col size-full gap-3 pt-2">
               <TweetFormContent placeholder="いまどうしてる?" />

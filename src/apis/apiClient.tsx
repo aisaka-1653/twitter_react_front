@@ -7,4 +7,8 @@ const apiClient = axios.create({
   },
 });
 
+export const fetcher = async (url: string) => {
+  return apiClient.get(url).then((res) => res.data);
+};
+
 export default apiClient;

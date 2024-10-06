@@ -1,14 +1,9 @@
-import { TweetForm } from "../orgranisms/form/TweetForm";
-import { useAuth } from "@/hooks/useAuth";
-import { Button } from "../ui/button";
+import { Timeline } from "../orgranisms/Timeline";
 
 export const Home = () => {
-  const { logout } = useAuth();
-
   return (
     <div>
-      <TweetForm />
-      <Button onClick={logout}>仮ログアウト</Button>
+      <Timeline />
     </div>
   );
 };

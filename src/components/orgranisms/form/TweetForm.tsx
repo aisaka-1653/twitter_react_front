@@ -8,13 +8,13 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { TweetFormContent } from "@/components/molecules/TweetFormContent";
-import { useTweet } from "@/hooks/useTweet";
+import { useCreateTweet } from "@/hooks/useCreateTweet";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { ImagePreview } from "../ImagePreview";
 import { useUser } from "@/hooks/useUser";
 
 export const TweetForm = () => {
-  const [createTweet, isLoading] = useTweet();
+  const [createTweet, isLoading] = useCreateTweet();
   const { imageUrl, createImageUrl, deleteImageUrl } = useImageUrl();
   const { user } = useUser();
 
@@ -32,10 +32,13 @@ export const TweetForm = () => {
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-          <div className="flex w-[598px] px-4 gap-2">
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="pt-3 pb-2 border-b-[1px] border-slate-600"
+        >
+          <div className="flex px-4 gap-2">
             <div className="pt-1">
-              <UserAvatar url={user?.avatar_url} />
+              <UserAvatar user={user} />
             </div>
             <div className="flex flex-col size-full gap-3 pt-2">
               <TweetFormContent placeholder="いまどうしてる?" />

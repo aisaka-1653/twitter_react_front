@@ -1,4 +1,4 @@
-import { fetcher } from "@/apis/users";
+import { fetcher } from "@/apis/apiClient";
 import { useUserStore } from "@/stores/userStore";
 import { User } from "@/types/user";
 import useSWR, { SWRResponse } from "swr";

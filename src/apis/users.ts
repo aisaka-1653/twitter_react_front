@@ -17,7 +17,3 @@ export const login = async (user: LoginProps): Promise<AxiosResponse> => {
 export const logout = async (): Promise<AxiosResponse> => {
   return apiClient.delete("/users/sign_out");
 };
-
-export const fetcher = async (url: string) => {
-  return apiClient.get(url).then((res) => res.data);
-};

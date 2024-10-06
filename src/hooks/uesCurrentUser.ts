@@ -3,7 +3,7 @@ import { User } from "@/types/user";
 import useSWR from "swr";
 
 export const useCurrentUser = () => {
-  const { data, error, isLoading } = useSWR<User>(`/user/sessions`, fetcher);
+  const { data, error, isLoading } = useSWR<User>(`/auth/sessions`, fetcher);
 
   return {
     currentUser: data,

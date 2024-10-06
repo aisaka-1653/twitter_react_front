@@ -1,6 +1,7 @@
 import { Home } from "@/components/pages/Home";
 import { Login } from "@/components/pages/Login";
 import { Signup } from "@/components/pages/Signup";
+import { TweetDetail } from "@/components/pages/TweetDetail";
 import { AuthLayout } from "@/components/templates/AuthLayout";
 import { ThreeColumnLayout } from "@/components/templates/ThreeColumnLayout";
 import { Route, Routes } from "react-router-dom";
@@ -10,6 +11,7 @@ export const Router = () => {
     <Routes>
       <Route element={<ThreeColumnLayout />}>
         <Route path="home" element={<Home />} />
+        <Route path="tweets/:tweetId" element={<TweetDetail />} />
       </Route>
       <Route path="users" element={<AuthLayout />}>
         <Route path="signup" element={<Signup />} />

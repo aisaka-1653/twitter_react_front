@@ -1,4 +1,4 @@
-export type User = {
+export type UserProfile = {
   id: number;
   email: string;
   display_name: string;
@@ -10,4 +10,11 @@ export type User = {
   website: string | null;
   date_of_birth: string;
   uid: string;
+};
+
+export type User = {
+  id: number;
+  display_name: string;
+  username: string;
+  avatar_url: string;
 };

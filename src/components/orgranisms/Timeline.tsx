@@ -1,11 +1,11 @@
 import { TweetForm } from "./form/TweetForm";
 import { TweetCard } from "./TweetCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { useSWRTweet } from "@/hooks/useSWRTweet";
+import { useAllTweets } from "@/hooks/useAllTweets";
 import { Loading } from "../molecules/Loading";
 
 export const Timeline = () => {
-  const { tweets, isLast, isLoading, error } = useSWRTweet();
+  const { tweets, isLast, isLoading, error } = useAllTweets();
 
   if (error) return <div>エラーが発生しました</div>;
   if (!tweets && !isLoading) return <div>ツイートがありません</div>;

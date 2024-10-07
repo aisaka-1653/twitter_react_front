@@ -3,7 +3,7 @@ import useSWRInfinite from "swr/infinite";
 
 const LIMIT = 10;
 
-export const useSWRTweet = () => {
+export const useAllTweets = () => {
   const getKey = (pageIndex: number, previousPageData: any) => {
     if (previousPageData && !previousPageData.has_more) return null;
     const offset = pageIndex * LIMIT;

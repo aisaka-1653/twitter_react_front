@@ -8,13 +8,11 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { TweetFormContent } from "@/components/molecules/TweetFormContent";
-import { useCreateTweet } from "@/hooks/useCreateTweet";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { ImagePreview } from "../ImagePreview";
 import { useCurrentUser } from "@/hooks/uesCurrentUser";
 
-export const TweetForm = () => {
-  const [createTweet, isLoading] = useCreateTweet();
+export const ReplyForm = () => {
   const { imageUrl, createImageUrl, deleteImageUrl } = useImageUrl();
   const { currentUser } = useCurrentUser();
 
@@ -23,8 +21,8 @@ export const TweetForm = () => {
     defaultValues: { content: "" },
   });
 
+  // TODO コメント投稿APIをたたく
   const handleSubmit = async (data: TweetFormSchema) => {
-    await createTweet(data);
     deleteImageUrl();
     form.reset();
   };
@@ -32,16 +30,13 @@ export const TweetForm = () => {
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleSubmit)}
-          className="pt-3 pb-2 border-b-[1px] border-slate-600"
-        >
+        <form onSubmit={form.handleSubmit(handleSubmit)}>
           <div className="flex px-4 gap-2">
             <div className="pt-1">
               <UserAvatar user={currentUser} />
             </div>
             <div className="flex flex-col size-full gap-3 pt-2">
-              <TweetFormContent placeholder="いまどうしてる?" />
+              <TweetFormContent placeholder="返信をツイート" />
               {imageUrl && (
                 <ImagePreview
                   imageUrl={imageUrl}
@@ -49,7 +44,7 @@ export const TweetForm = () => {
                 />
               )}
               <TweetFormFooter
-                isLoading={isLoading}
+                isLoading={false}
                 createImageUrl={createImageUrl}
               />
             </div>

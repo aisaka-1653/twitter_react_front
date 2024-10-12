@@ -33,7 +33,7 @@ export const ProfileTop: React.FC<ProfileHeaderProps> = ({ user }) => {
         {currentUser?.id === id ? (
           <Button
             variant="outline"
-            className="text-[15px] font-bold rounded-full border-slate-600 mt-3"
+            className="text-[15px] font-bold rounded-full border-slate-600"
           >
             プロフィールを編集
           </Button>

@@ -10,6 +10,16 @@ export const createUser = async (user: CreateUserProps): Promise<void> => {
   return apiClient.post("/users", user);
 };
 
+export const editProfile = async (
+  formData: FormData,
+): Promise<AxiosResponse> => {
+  return apiClient.patch("/profile", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 export const login = async (user: LoginProps): Promise<AxiosResponse> => {
   return apiClient.post("/users/sign_in", user);
 };

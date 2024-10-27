@@ -2,7 +2,7 @@ import { UserProfile } from "@/types/user";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { useCurrentUser } from "@/hooks/uesCurrentUser";
 import { ProfileActionbar } from "../molecules/ProfileActionbar";
-import { ProfileEditForm } from "./ProfileEditForm";
+import { ProfileEditForm } from "./form/ProfileEditForm";
 
 type ProfileHeaderProps = {
   user: UserProfile;

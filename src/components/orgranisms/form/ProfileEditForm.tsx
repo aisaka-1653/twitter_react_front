@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   Dialog,
   DialogClose,
@@ -22,13 +22,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { CustomFormField } from "../molecules/CustomFormField";
-import { AutoResizeTextArea } from "../atoms/AutoResizeTextArea";
+} from "../../ui/form";
+import { CustomFormField } from "../../molecules/CustomFormField";
+import { AutoResizeTextArea } from "../../atoms/AutoResizeTextArea";
 import { useImageUrl } from "@/hooks/useImageUrl";
-import { useEditProfile } from "../../hooks/useEditProfile";
-import { ProfileEditHeader } from "../molecules/ProfileEditHeader";
-import { ProfileAvatar } from "../molecules/ProfileEditAvatar";
+import { useEditProfile } from "../../../hooks/useEditProfile";
+import { ProfileEditHeader } from "../../molecules/ProfileEditHeader";
+import { ProfileAvatar } from "../../molecules/ProfileEditAvatar";
 
 type ProfileEditFormType = {
   user: UserProfile;

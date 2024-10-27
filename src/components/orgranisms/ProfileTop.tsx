@@ -1,8 +1,8 @@
 import { UserProfile } from "@/types/user";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
 import { useCurrentUser } from "@/hooks/uesCurrentUser";
 import { ProfileActionbar } from "../molecules/ProfileActionbar";
+import { ProfileEditForm } from "./ProfileEditForm";
 
 type ProfileHeaderProps = {
   user: UserProfile;
@@ -25,18 +25,13 @@ export const ProfileTop: React.FC<ProfileHeaderProps> = ({ user }) => {
             </div>
             <div className="absolute size-full">
               <Avatar className="absolute top-[6px] left-[6px] size-[calc(100%_-_12px)]">
-                <AvatarImage src={avatar_url} />
+                <AvatarImage src={avatar_url} className="object-cover" />
               </Avatar>
             </div>
           </div>
         </div>
         {currentUser?.id === id ? (
-          <Button
-            variant="outline"
-            className="text-[15px] font-bold rounded-full border-slate-600"
-          >
-            プロフィールを編集
-          </Button>
+          <ProfileEditForm user={user} />
         ) : (
           <ProfileActionbar />
         )}

@@ -29,30 +29,36 @@ import { useEditProfile } from "../../../hooks/useEditProfile";
 import { ProfileEditHeader } from "../../molecules/ProfileEditHeader";
 import { ProfileAvatar } from "../../molecules/ProfileEditAvatar";
 import { useState } from "react";
+import { useSWRConfig } from "swr";
 
 type ProfileEditFormType = {
   user: UserProfile;
 };
 
 export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
-  const { display_name, bio, location, website, avatar_url, header_url } = user;
+  const { id, display_name, bio, location, website, avatar_url, header_url } = user;
   const [open, setOpen] = useState(false);
+  const [editProfile] = useEditProfile();
+  const { mutate } = useSWRConfig();
+
   const {
     imageUrl: headerUrl,
     createImageUrl: createHeaderUrl,
     deleteImageUrl: deleteHeaderUrl,
   } = useImageUrl();
+
   const {
     imageUrl: avatarUrl,
     createImageUrl: createAvatarUrl,
     deleteImageUrl: deleteAvatarUrl,
   } = useImageUrl();
-  const [editProfile] = useEditProfile();
 
-  const onSubmit = (data: ProfileEditFormProps) => {
-    editProfile(data);
+
+  const onSubmit = async (data: ProfileEditFormProps) => {
+    await editProfile(data);
     deleteHeaderUrl();
     deleteAvatarUrl();
+    await mutate(`/users/${id}`)
     setOpen(false);
   };
 

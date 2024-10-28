@@ -61,7 +61,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
     file: File,
     createUrl: (file: File) => void,
   ) => {
-    form.setValue(fieldName, file, { shouldValidate: true });
+    setValue(fieldName, file, { shouldValidate: true });
     createUrl(file);
   };
 
@@ -69,7 +69,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
     if (!open) {
       deleteHeaderUrl();
       deleteAvatarUrl();
-      form.reset();
+      reset();
     }
     setOpen(open);
   };
@@ -85,7 +85,14 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
     },
   });
 
-  const { formState } = form;
+  const {
+    control,
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { isValid },
+  } = form;
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -99,7 +106,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
       </DialogTrigger>
       <DialogContent className="min-w-[600px] h-[650px] min-h[400px] rounded-2xl overflow-y-auto p-0">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <DialogHeader className="px-6 pt-6">
               <DialogTitle>プロフィールを編集</DialogTitle>
             </DialogHeader>
@@ -110,7 +117,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
                 onFileChange={(file) =>
                   handleFileChange("header", file, createHeaderUrl)
                 }
-                register={form.register}
+                register={register}
               />
               <div className="flex justify-between items-center px-4 pt-3">
                 <ProfileAvatar
@@ -119,17 +126,17 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
                   onFileChange={(file) =>
                     handleFileChange("avatar", file, createAvatarUrl)
                   }
-                  register={form.register}
+                  register={register}
                 />
               </div>
               <div className="flex flex-col gap-5 p-6">
                 <CustomFormField
-                  control={form.control}
+                  control={control}
                   name="display_name"
                   label="名前"
                 />
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="bio"
                   render={({ field }) => (
                     <FormItem>
@@ -142,12 +149,12 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
                   )}
                 />
                 <CustomFormField
-                  control={form.control}
+                  control={control}
                   name="location"
                   label="場所"
                 />
                 <CustomFormField
-                  control={form.control}
+                  control={control}
                   name="website"
                   label="ウェブサイト"
                 />
@@ -158,7 +165,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
                 type="submit"
                 variant="inverse"
                 className="w-full"
-                disabled={!formState.isValid}
+                disabled={!isValid}
               >
                 保存
               </Button>

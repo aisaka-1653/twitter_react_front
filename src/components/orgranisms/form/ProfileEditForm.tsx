@@ -1,7 +1,6 @@
 import { Button } from "../../ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -29,6 +28,7 @@ import { useImageUrl } from "@/hooks/useImageUrl";
 import { useEditProfile } from "../../../hooks/useEditProfile";
 import { ProfileEditHeader } from "../../molecules/ProfileEditHeader";
 import { ProfileAvatar } from "../../molecules/ProfileEditAvatar";
+import { useState } from "react";
 
 type ProfileEditFormType = {
   user: UserProfile;
@@ -36,6 +36,7 @@ type ProfileEditFormType = {
 
 export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
   const { display_name, bio, location, website, avatar_url, header_url } = user;
+  const [open, setOpen] = useState(false);
   const {
     imageUrl: headerUrl,
     createImageUrl: createHeaderUrl,
@@ -52,6 +53,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
     editProfile(data);
     deleteHeaderUrl();
     deleteAvatarUrl();
+    setOpen(false);
   };
 
   const handleFileChange = (
@@ -69,6 +71,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
       deleteAvatarUrl();
       form.reset();
     }
+    setOpen(open);
   };
 
   const form = useForm<ProfileEditFormProps>({
@@ -82,8 +85,10 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
     },
   });
 
+  const { formState } = form;
+
   return (
-    <Dialog onOpenChange={handleOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -149,11 +154,14 @@ export const ProfileEditForm: React.FC<ProfileEditFormType> = ({ user }) => {
               </div>
             </div>
             <DialogFooter className="px-6 pb-6 sm:justify-start">
-              <DialogClose asChild>
-                <Button type="submit" variant="inverse" className="w-full">
-                  保存
-                </Button>
-              </DialogClose>
+              <Button
+                type="submit"
+                variant="inverse"
+                className="w-full"
+                disabled={!formState.isValid}
+              >
+                保存
+              </Button>
             </DialogFooter>
           </form>
         </Form>

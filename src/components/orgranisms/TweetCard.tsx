@@ -22,7 +22,7 @@ export const TweetCard: FC<TweetCardProps> = ({ tweet }) => {
               <UserAvatar user={user} />
             </div>
             <div className="flex flex-col size-full">
-              <TweetCardHeader user={user} />
+              <TweetCardHeader tweet={tweet} />
               <p className="whitespace-pre text-wrap break-words">{content}</p>
               <TweetCardImage imageUrl={image_url} className="my-3" />
               <TweetCardFooter />

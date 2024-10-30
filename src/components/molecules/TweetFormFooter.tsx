@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { TweetButton } from "../atoms/TweetButton";
 import { ImageUploadButton } from "../atoms/ImageUploadButton";
-import { Loader2 } from "lucide-react";
+import { Image, Loader2 } from "lucide-react";
 import { FC } from "react";
 
 type TweetFormFooterProps = {
@@ -22,7 +22,13 @@ export const TweetFormFooter: FC<TweetFormFooterProps> = ({
 
   return (
     <div className="flex justify-between items-center">
-      <ImageUploadButton register={register} onFileChange={handleFileChange} />
+      <ImageUploadButton
+        register={register}
+        onFileChange={handleFileChange}
+        className="text-blue-300"
+      >
+        <Image className="size-5" />
+      </ImageUploadButton>
       <div className="h-9">
         <TweetButton isDisabled={!formState.isValid || isLoading}>
           {isLoading ? (

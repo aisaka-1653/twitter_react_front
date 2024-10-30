@@ -1,3 +1,4 @@
+import { UserProfile } from "@/components/pages/UserProfile";
 import { Home } from "@/components/pages/Home";
 import { Login } from "@/components/pages/Login";
 import { Signup } from "@/components/pages/Signup";
@@ -12,6 +13,7 @@ export const Router = () => {
       <Route element={<ThreeColumnLayout />}>
         <Route path="home" element={<Home />} />
         <Route path="tweets/:tweetId" element={<TweetDetail />} />
+        <Route path="users/:userId" element={<UserProfile />} />
       </Route>
       <Route path="users" element={<AuthLayout />}>
         <Route path="signup" element={<Signup />} />

@@ -1,3 +1,5 @@
+import { Tweet } from "./tweet";
+
 export type UserProfile = {
   id: number;
   email: string;
@@ -10,6 +12,7 @@ export type UserProfile = {
   website: string | null;
   date_of_birth: string;
   uid: string;
+  tweets: Array<Tweet>;
 };
 
 export type User = {

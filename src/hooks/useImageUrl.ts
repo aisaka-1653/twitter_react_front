@@ -4,7 +4,7 @@ export const useImageUrl = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
 
   const createImageUrl = (image: File) => {
-    if (imageUrl) deleteImageUrl;
+    if (imageUrl) deleteImageUrl();
     setImageUrl(window.URL.createObjectURL(image));
   };
 

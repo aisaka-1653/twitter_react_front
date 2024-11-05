@@ -9,7 +9,7 @@ import { Loader2 } from "lucide-react";
 export const UserProfile = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { user, isLoading, isError } = useUserProfile(userId);
+  const { user, isLoading, isError, mutate } = useUserProfile(userId);
 
   const handleClick = () => {
     navigate(-1);
@@ -30,7 +30,7 @@ export const UserProfile = () => {
         <ProfileBio user={user} />
       </div>
       <div>
-        <ProfileTweetCollection tweets={user.tweets} />
+        <ProfileTweetCollection tweets={user.tweets} mutate={mutate} />
       </div>
     </div>
   );

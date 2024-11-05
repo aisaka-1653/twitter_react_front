@@ -5,7 +5,7 @@ import { useAllTweets } from "@/hooks/useAllTweets";
 import { Loading } from "../molecules/Loading";
 
 export const Timeline = () => {
-  const { tweets, isLast, isLoading, error } = useAllTweets();
+  const { tweets, isLast, isLoading, error, mutate } = useAllTweets();
 
   if (error) return <div>エラーが発生しました</div>;
   if (!tweets && !isLoading) return <div>ツイートがありません</div>;
@@ -19,7 +19,9 @@ export const Timeline = () => {
         </TabsList>
         <TweetForm />
         <TabsContent value="recommend">
-          {tweets?.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)}
+          {tweets?.map((tweet) => (
+            <TweetCard key={tweet.id} tweet={tweet} mutate={mutate} />
+          ))}
           {!isLast && <Loading />}
         </TabsContent>
         <TabsContent value="following"></TabsContent>

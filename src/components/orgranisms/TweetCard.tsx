@@ -6,12 +6,14 @@ import { UserAvatar } from "../atoms/UserAvatar";
 import { TweetCardFooter } from "../molecules/TweetCardFooter";
 import { TweetCardImage } from "../atoms/TweetCardImage";
 import { Link } from "react-router-dom";
+import { KeyedMutator } from "swr";
 
 type TweetCardProps = {
   tweet: Tweet;
+  mutate: KeyedMutator<any>;
 };
 
-export const TweetCard: FC<TweetCardProps> = ({ tweet }) => {
+export const TweetCard: FC<TweetCardProps> = ({ tweet, mutate }) => {
   const { user, id, content, image_url } = tweet;
   return (
     <Link to={`/tweets/${id}`}>
@@ -22,7 +24,7 @@ export const TweetCard: FC<TweetCardProps> = ({ tweet }) => {
               <UserAvatar user={user} />
             </div>
             <div className="flex flex-col size-full">
-              <TweetCardHeader tweet={tweet} />
+              <TweetCardHeader tweet={tweet} mutate={mutate} />
               <p className="whitespace-pre text-wrap break-words">{content}</p>
               <TweetCardImage imageUrl={image_url} className="my-3" />
               <TweetCardFooter />

@@ -11,16 +11,19 @@ import { useCurrentUser } from "@/hooks/uesCurrentUser";
 import { tweetDestroy } from "@/apis/tweet";
 import { Tweet } from "@/types/tweet";
 import { toast } from "sonner";
-import { useAllTweets } from "@/hooks/useAllTweets";
+import { KeyedMutator } from "swr";
 
 type TweetMoreDropdownProps = {
   tweet: Tweet;
+  mutate: KeyedMutator<any>;
 };
 
-export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({ tweet }) => {
+export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({
+  tweet,
+  mutate,
+}) => {
   const { user } = tweet;
   const { currentUser } = useCurrentUser();
-  const { mutate } = useAllTweets();
   const isCurrentUser = currentUser?.id === user.id;
 
   const followClick = (e: React.MouseEvent<HTMLButtonElement>) => {

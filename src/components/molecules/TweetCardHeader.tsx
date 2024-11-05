@@ -3,12 +3,14 @@ import { TweetMoreDropdown } from "../orgranisms/TweetMoreDropdown";
 import { FC } from "react";
 import { Button } from "../ui/button";
 import { Tweet } from "@/types/tweet";
+import { KeyedMutator } from "swr";
 
 type TweetUserInfoProps = {
   tweet: Tweet;
+  mutate: KeyedMutator<any>;
 };
 
-export const TweetCardHeader: FC<TweetUserInfoProps> = ({ tweet }) => {
+export const TweetCardHeader: FC<TweetUserInfoProps> = ({ tweet, mutate }) => {
   const { user } = tweet;
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export const TweetCardHeader: FC<TweetUserInfoProps> = ({ tweet }) => {
           {`@${user.username}`}
         </span>
       </div>
-      <TweetMoreDropdown tweet={tweet} />
+      <TweetMoreDropdown tweet={tweet} mutate={mutate} />
     </div>
   );
 };

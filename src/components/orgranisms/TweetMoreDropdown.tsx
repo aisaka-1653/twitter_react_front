@@ -11,6 +11,7 @@ import { useCurrentUser } from "@/hooks/uesCurrentUser";
 import { tweetDestroy } from "@/apis/tweet";
 import { Tweet } from "@/types/tweet";
 import { toast } from "sonner";
+import { useAllTweets } from "@/hooks/useAllTweets";
 
 type TweetMoreDropdownProps = {
   tweet: Tweet;
@@ -19,6 +20,7 @@ type TweetMoreDropdownProps = {
 export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({ tweet }) => {
   const { user } = tweet;
   const { currentUser } = useCurrentUser();
+  const { mutate } = useAllTweets();
   const isCurrentUser = currentUser?.id === user.id;
 
   const followClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -30,6 +32,7 @@ export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({ tweet }) => {
 
     try {
       await tweetDestroy(tweet.id);
+      await mutate();
       toast.success("ツイートを削除しました");
     } catch (error) {
       toast.error("ツイートの削除に失敗しました");
@@ -46,7 +49,7 @@ export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({ tweet }) => {
           <DropdownMenuItem className="px-4 py-3 hover:bg-accent hover:text-accent-foreground cursor-pointer">
             <Button
               variant="ghost"
-              className="p-0 h-5 text-red-500"
+              className="p-0 h-5 text-red-500 hover:text-red-500"
               onClick={tweetDestroyClick}
             >
               <Trash2 className="h-5 w-5 mr-3" />

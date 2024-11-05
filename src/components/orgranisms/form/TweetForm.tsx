@@ -12,11 +12,13 @@ import { useCreateTweet } from "@/hooks/useCreateTweet";
 import { useImageUrl } from "@/hooks/useImageUrl";
 import { ImagePreview } from "../ImagePreview";
 import { useCurrentUser } from "@/hooks/uesCurrentUser";
+import { useAllTweets } from "@/hooks/useAllTweets";
 
 export const TweetForm = () => {
   const [createTweet, isLoading] = useCreateTweet();
   const { imageUrl, createImageUrl, deleteImageUrl } = useImageUrl();
   const { currentUser } = useCurrentUser();
+  const { mutate } = useAllTweets();
 
   const form = useForm<TweetFormSchema>({
     resolver: zodResolver(tweetFormSchema),
@@ -25,6 +27,7 @@ export const TweetForm = () => {
 
   const handleSubmit = async (data: TweetFormSchema) => {
     await createTweet(data);
+    await mutate();
     deleteImageUrl();
     form.reset();
   };

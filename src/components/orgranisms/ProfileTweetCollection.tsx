@@ -1,13 +1,17 @@
 import { Tweet } from "@/types/tweet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { TweetCard } from "./TweetCard";
+import { KeyedMutator } from "swr";
+import { UserProfile } from "@/types/user";
 
 type ProfileTweetCollection = {
   tweets: Array<Tweet>;
+  mutate: KeyedMutator<UserProfile>;
 };
 
 export const ProfileTweetCollection: React.FC<ProfileTweetCollection> = ({
   tweets,
+  mutate,
 }) => {
   return (
     <Tabs defaultValue="tweet">
@@ -18,7 +22,9 @@ export const ProfileTweetCollection: React.FC<ProfileTweetCollection> = ({
         <TabsTrigger value="media">メディア</TabsTrigger>
       </TabsList>
       <TabsContent value="tweet">
-        {tweets?.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)}
+        {tweets?.map((tweet) => (
+          <TweetCard key={tweet.id} tweet={tweet} mutate={mutate} />
+        ))}
       </TabsContent>
       <TabsContent value="like"></TabsContent>
       <TabsContent value="reply"></TabsContent>

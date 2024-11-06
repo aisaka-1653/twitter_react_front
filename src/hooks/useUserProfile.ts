@@ -7,10 +7,11 @@ export const useUserProfile = (userId: string | undefined) => {
     data: user,
     error,
     isLoading,
+    mutate,
   }: SWRResponse<UserProfile, Error> = useSWR(
     userId ? `/users/${userId}` : null,
-    fetcher
+    fetcher,
   );
 
-  return { user, isLoading, isError: !!error };
+  return { user, isLoading, isError: !!error, mutate };
 };

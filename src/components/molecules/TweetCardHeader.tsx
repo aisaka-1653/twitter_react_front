@@ -1,14 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { TweetMoreDropdown } from "../orgranisms/TweetMoreDropdown";
-import { User } from "@/types/user";
 import { FC } from "react";
 import { Button } from "../ui/button";
+import { Tweet } from "@/types/tweet";
+import { KeyedMutator } from "swr";
 
 type TweetUserInfoProps = {
-  user: User;
+  tweet: Tweet;
+  mutate: KeyedMutator<any>;
 };
 
-export const TweetCardHeader: FC<TweetUserInfoProps> = ({ user }) => {
+export const TweetCardHeader: FC<TweetUserInfoProps> = ({ tweet, mutate }) => {
+  const { user } = tweet;
   const navigate = useNavigate();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,7 +34,7 @@ export const TweetCardHeader: FC<TweetUserInfoProps> = ({ user }) => {
           {`@${user.username}`}
         </span>
       </div>
-      <TweetMoreDropdown user={user} />
+      <TweetMoreDropdown tweet={tweet} mutate={mutate} />
     </div>
   );
 };

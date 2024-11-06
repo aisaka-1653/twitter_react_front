@@ -16,6 +16,7 @@ export const useAllTweets = () => {
     size,
     setSize,
     isLoading,
+    mutate,
   } = useSWRInfinite(getKey, fetcher);
 
   const loadMoreTweets = () => {
@@ -30,6 +31,7 @@ export const useAllTweets = () => {
     isLast,
     isLoading,
     error,
+    mutate,
     loadMoreTweets,
   };
 };

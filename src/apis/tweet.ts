@@ -6,13 +6,13 @@ type tweetTextProps = {
 };
 
 export const tweetText = async (
-  content: tweetTextProps
+  content: tweetTextProps,
 ): Promise<AxiosResponse> => {
   return apiClient.post("/tweets", content);
 };
 
 export const tweetImage = async (
-  formData: FormData
+  formData: FormData,
 ): Promise<AxiosResponse> => {
   return apiClient.post("/images", formData, {
     headers: {
@@ -23,4 +23,8 @@ export const tweetImage = async (
 
 export const tweetDetail = async (): Promise<AxiosResponse> => {
   return apiClient.get("/tweets/:id");
+};
+
+export const tweetDestroy = async (id: string): Promise<AxiosResponse> => {
+  return apiClient.delete(`/tweets/${id}`);
 };

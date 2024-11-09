@@ -5,7 +5,7 @@ import { TweetCardHeader } from "../molecules/TweetCardHeader";
 import { UserAvatar } from "../atoms/UserAvatar";
 import { TweetCardFooter } from "../molecules/TweetCardFooter";
 import { TweetCardImage } from "../atoms/TweetCardImage";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { KeyedMutator } from "swr";
 
 type TweetCardProps = {
@@ -15,8 +15,14 @@ type TweetCardProps = {
 
 export const TweetCard: FC<TweetCardProps> = ({ tweet, mutate }) => {
   const { user, id, content, image_url } = tweet;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/tweets/${id}`);
+  };
+
   return (
-    <Link to={`/tweets/${id}`}>
+    <div onClick={handleClick}>
       <Card className="cursor-pointer border-b-[1px] border-slate-600 hover:bg-accent/30">
         <CardContent className="px-4 pt-3">
           <div className="flex gap-2">
@@ -27,11 +33,11 @@ export const TweetCard: FC<TweetCardProps> = ({ tweet, mutate }) => {
               <TweetCardHeader tweet={tweet} mutate={mutate} />
               <p className="whitespace-pre text-wrap break-words">{content}</p>
               <TweetCardImage imageUrl={image_url} className="my-3" />
-              <TweetCardFooter />
+              <TweetCardFooter tweet={tweet} />
             </div>
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </div>
   );
 };

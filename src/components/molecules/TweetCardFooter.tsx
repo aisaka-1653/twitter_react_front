@@ -1,13 +1,16 @@
-import { Bookmark, Heart, MessageCircle, Repeat } from "lucide-react";
+import { Bookmark, Heart, Repeat } from "lucide-react";
 import { TweetCardFooterIcon } from "./TweetCardFooterIcon";
+import { CommentForm } from "../orgranisms/form/CommentForm";
+import { Tweet } from "@/types/tweet";
 
-export const TweetCardFooter = () => {
+type TweetCardFooterProps = {
+  tweet: Tweet;
+};
+
+export const TweetCardFooter: React.FC<TweetCardFooterProps> = ({ tweet }) => {
   return (
     <div className="w-full flex justify-between">
-      <TweetCardFooterIcon
-        className="hover:bg-sky-500/20 hover:text-sky-400"
-        icon={<MessageCircle />}
-      />
+      <CommentForm tweet={tweet} />
       <TweetCardFooterIcon
         className="hover:bg-green-500/20 hover:text-green-400"
         icon={<Repeat />}

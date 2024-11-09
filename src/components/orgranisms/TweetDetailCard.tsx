@@ -11,7 +11,7 @@ type TweetCardProps = {
 };
 
 export const TweetDetailCard: FC<TweetCardProps> = ({ tweet }) => {
-  const { user, content, image_url, created_at } = tweet;
+  const { content, image_url, created_at } = tweet;
   const formattedDate = formatTweetTimestamp(created_at);
 
   return (
@@ -19,7 +19,7 @@ export const TweetDetailCard: FC<TweetCardProps> = ({ tweet }) => {
       <CardContent className="px-4 pt-3">
         <div className="flex gap-2">
           <div className="flex flex-col size-full mb-5">
-            <TweetDetailCardHeader user={user} />
+            <TweetDetailCardHeader tweet={tweet} />
             <p className="whitespace-pre text-wrap break-words mt-3">
               {content}
             </p>
@@ -28,7 +28,7 @@ export const TweetDetailCard: FC<TweetCardProps> = ({ tweet }) => {
               {formattedDate}
             </p>
             <div className="border-y-[1px] border-slate-800">
-              <TweetCardFooter />
+              <TweetCardFooter tweet={tweet} />
             </div>
           </div>
         </div>

@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { TweetMoreDropdown } from "../orgranisms/TweetMoreDropdown";
-import { User } from "@/types/user";
 import { FC } from "react";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../atoms/UserAvatar";
+import { Tweet } from "@/types/tweet";
 
 type TweetUserInfoProps = {
-  user: User;
+  tweet: Tweet;
 };
 
-export const TweetDetailCardHeader: FC<TweetUserInfoProps> = ({ user }) => {
+export const TweetDetailCardHeader: FC<TweetUserInfoProps> = ({ tweet }) => {
+  const { user } = tweet;
   const navigate = useNavigate();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,7 +34,7 @@ export const TweetDetailCardHeader: FC<TweetUserInfoProps> = ({ user }) => {
           <span className="text-muted-foreground">{`@${user.username}`}</span>
         </div>
       </div>
-      <TweetMoreDropdown user={user} />
+      <TweetMoreDropdown tweet={tweet} />
     </div>
   );
 };

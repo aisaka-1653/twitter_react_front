@@ -15,7 +15,7 @@ import { KeyedMutator } from "swr";
 
 type TweetMoreDropdownProps = {
   tweet: Tweet;
-  mutate: KeyedMutator<any>;
+  mutate?: KeyedMutator<any>;
 };
 
 export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({
@@ -35,7 +35,7 @@ export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({
 
     try {
       await tweetDestroy(tweet.id);
-      await mutate();
+      await mutate?.();
       toast.success("ツイートを削除しました");
     } catch (error) {
       toast.error("ツイートの削除に失敗しました");
@@ -48,6 +48,7 @@ export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({
         <MoreHorizontal className="h-5 w-5" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="rounded-xl shadow-md shadow-white">
+        {" "}
         {isCurrentUser ? (
           <DropdownMenuItem className="px-4 py-3 hover:bg-accent hover:text-accent-foreground cursor-pointer">
             <Button

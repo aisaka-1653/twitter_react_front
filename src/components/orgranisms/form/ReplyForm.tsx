@@ -12,12 +12,16 @@ import {
   commentFormSchema,
   CommentFormSchema,
 } from "@/utils/schema/commentFormSchema";
+import { KeyedMutator } from "swr";
+import { Comment } from "@/types/comment";
 
 type ReplyFormProps = {
-  tweetId: string
+  tweetId: string;
+  mutate: KeyedMutator<Array<Comment>>;
 };
 
-export const ReplyForm: React.FC<ReplyFormProps> = ({ tweetId }) => {
+export const ReplyForm: React.FC<ReplyFormProps> = (props) => {
+  const { tweetId, mutate } = props;
   const { currentUser } = useCurrentUser();
 
   const form = useForm<CommentFormSchema>({
@@ -32,6 +36,7 @@ export const ReplyForm: React.FC<ReplyFormProps> = ({ tweetId }) => {
   const handleSubmit = async ({ content }: CommentFormSchema) => {
     try {
       await createComment(tweetId, content);
+      await mutate();
       toast.success("コメントしました");
       form.reset();
     } catch {

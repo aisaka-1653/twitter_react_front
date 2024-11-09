@@ -16,6 +16,7 @@ export const TweetDetail = () => {
 
   if (isLoading) return <Loader2 className="mr-2 h-4 w-4 animate-spin" />;
   if (isError) return <div>エラーが発生しました</div>;
+  if (!tweetId) return <div>ツイートidが見つかりません</div>;
   if (!tweet) return <div>ツイートがありません</div>;
   return (
     <div className="w-[598px] border-x-[1px] border-slate-600">
@@ -27,7 +28,7 @@ export const TweetDetail = () => {
       </div>
       <TweetDetailCard tweet={tweet} />
       <div className="border-b-[1px] border-slate-600 pb-3">
-        <ReplyForm />
+        <ReplyForm tweetId={tweetId} />
       </div>
     </div>
   );

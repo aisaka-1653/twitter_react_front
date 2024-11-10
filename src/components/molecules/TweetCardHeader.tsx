@@ -16,6 +16,7 @@ export const TweetCardHeader: FC<TweetUserInfoProps> = ({ tweet, mutate }) => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     navigate(`/users/${user.id}`);
   };
 

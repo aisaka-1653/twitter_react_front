@@ -28,10 +28,12 @@ export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({
 
   const followClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    e.stopPropagation();
   };
 
   const tweetDestroyClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    e.stopPropagation();
 
     try {
       await tweetDestroy(tweet.id);

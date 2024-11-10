@@ -1,34 +1,28 @@
-import { Tweet } from "@/types/tweet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { TweetCard } from "./TweetCard";
-import { KeyedMutator } from "swr";
-import { UserProfile } from "@/types/user";
+import { CommentList } from "./tabs/CommentList";
+import { TweetList } from "./tabs/TweetList";
 
 type ProfileTweetCollection = {
-  tweets: Array<Tweet>;
-  mutate: KeyedMutator<UserProfile>;
+  userId: string | undefined;
 };
 
 export const ProfileTweetCollection: React.FC<ProfileTweetCollection> = ({
-  tweets,
-  mutate,
+  userId,
 }) => {
+  if (!userId) return null;
+
   return (
     <Tabs defaultValue="tweet">
       <TabsList className="w-full h-[53px] border-b-[1px]">
         <TabsTrigger value="tweet">ツイート</TabsTrigger>
+        <TabsTrigger value="comment">コメント</TabsTrigger>
+        <TabsTrigger value="retweet">リツイート</TabsTrigger>
         <TabsTrigger value="like">いいね</TabsTrigger>
-        <TabsTrigger value="reply">返信</TabsTrigger>
-        <TabsTrigger value="media">メディア</TabsTrigger>
       </TabsList>
-      <TabsContent value="tweet">
-        {tweets?.map((tweet) => (
-          <TweetCard key={tweet.id} tweet={tweet} mutate={mutate} />
-        ))}
-      </TabsContent>
+      <TweetList userId={userId} />
+      <CommentList userId={userId} />
+      <TabsContent value="retweet"></TabsContent>
       <TabsContent value="like"></TabsContent>
-      <TabsContent value="reply"></TabsContent>
-      <TabsContent value="media"></TabsContent>
     </Tabs>
   );
 };

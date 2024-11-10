@@ -34,7 +34,7 @@ export const TweetDetail = () => {
         <ReplyForm tweetId={tweetId} mutate={mutate} />
       </div>
       {comments?.map((comment) => (
-        <CommentCard key={comment.id} comment={comment} />
+        <CommentCard key={comment.id} comment={comment} mutate={mutate} />
       ))}
     </div>
   );

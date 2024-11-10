@@ -19,7 +19,7 @@ export const UserAvatar: FC<UserAvatarProps> = ({ user }) => {
   return (
     <Button variant="circle" size="icon" onClick={handleClick}>
       <Avatar>
-        <AvatarImage src={user?.avatar_url} />
+        <AvatarImage src={user?.avatar_url} className="object-cover" />
       </Avatar>
     </Button>
   );

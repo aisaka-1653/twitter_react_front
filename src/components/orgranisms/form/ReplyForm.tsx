@@ -1,30 +1,42 @@
 import { UserAvatar } from "@/components/atoms/UserAvatar";
-import { TweetFormFooter } from "@/components/molecules/TweetFormFooter";
 import { FormProvider, useForm } from "react-hook-form";
-import {
-  tweetFormSchema,
-  TweetFormSchema,
-} from "@/utils/schema/tweetFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { TweetFormContent } from "@/components/molecules/TweetFormContent";
-import { useImageUrl } from "@/hooks/useImageUrl";
-import { ImagePreview } from "../ImagePreview";
 import { useCurrentUser } from "@/hooks/uesCurrentUser";
+import { createComment } from "@/apis/comment";
+import { toast } from "sonner";
+import { TweetButton } from "@/components/atoms/TweetButton";
+import { Loader2 } from "lucide-react";
+import {
+  commentFormSchema,
+  CommentFormSchema,
+} from "@/utils/schema/commentFormSchema";
 
-export const ReplyForm = () => {
-  const { imageUrl, createImageUrl, deleteImageUrl } = useImageUrl();
+type ReplyFormProps = {
+  tweetId: string
+};
+
+export const ReplyForm: React.FC<ReplyFormProps> = ({ tweetId }) => {
   const { currentUser } = useCurrentUser();
 
-  const form = useForm<TweetFormSchema>({
-    resolver: zodResolver(tweetFormSchema),
+  const form = useForm<CommentFormSchema>({
+    resolver: zodResolver(commentFormSchema),
     defaultValues: { content: "" },
   });
 
-  // TODO コメント投稿APIをたたく
-  const handleSubmit = async (data: TweetFormSchema) => {
-    deleteImageUrl();
-    form.reset();
+  const {
+    formState: { isValid, isSubmitting },
+  } = form;
+
+  const handleSubmit = async ({ content }: CommentFormSchema) => {
+    try {
+      await createComment(tweetId, content);
+      toast.success("コメントしました");
+      form.reset();
+    } catch {
+      toast.error("コメントに失敗しました");
+    }
   };
 
   return (
@@ -36,17 +48,16 @@ export const ReplyForm = () => {
               <UserAvatar user={currentUser} />
             </div>
             <div className="flex flex-col size-full gap-3 pt-2">
-              <TweetFormContent placeholder="返信をツイート" />
-              {imageUrl && (
-                <ImagePreview
-                  imageUrl={imageUrl}
-                  deleteImageUrl={deleteImageUrl}
-                />
-              )}
-              <TweetFormFooter
-                isLoading={false}
-                createImageUrl={createImageUrl}
-              />
+              <TweetFormContent placeholder="コメントを投稿" />
+              <div className="flex justify-end">
+                <TweetButton isDisabled={!isValid} className="w-16">
+                  {isSubmitting ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    "送信"
+                  )}
+                </TweetButton>
+              </div>
             </div>
           </div>
         </form>

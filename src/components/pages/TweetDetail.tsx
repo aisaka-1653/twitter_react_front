@@ -11,7 +11,7 @@ export const TweetDetail = () => {
   const { tweetId } = useParams();
   const navigate = useNavigate();
   const { tweet, isLoading, isError } = useSingleTweet(tweetId);
-  const { comments, mutate } = useAllComments(tweetId);
+  const { comments, mutate } = useAllComments("tweet", tweetId);
 
   const handleClick = () => {
     navigate(-1);

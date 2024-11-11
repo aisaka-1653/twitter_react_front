@@ -29,7 +29,7 @@ export const TweetCard: FC<TweetCardProps> = ({ tweet, mutate }) => {
             <div className="pt-1">
               <UserAvatar user={user} />
             </div>
-            <div className="flex flex-col size-full">
+            <div className="flex flex-col min-w-0 flex-1">
               <TweetCardHeader tweet={tweet} mutate={mutate} />
               <p className="whitespace-pre text-wrap break-words">{content}</p>
               <TweetCardImage imageUrl={image_url} className="my-3" />

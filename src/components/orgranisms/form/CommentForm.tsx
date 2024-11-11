@@ -6,7 +6,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Tweet } from "@/types/tweet";
-import { TweetCardFooterIcon } from "@/components/molecules/TweetCardFooterIcon";
 import { CommentPreview } from "../CommentPreview";
 import { UserAvatar } from "@/components/atoms/UserAvatar";
 import { useCurrentUser } from "@/hooks/uesCurrentUser";
@@ -22,12 +21,14 @@ import { createComment } from "@/apis/comment";
 import { Form } from "@/components/ui/form";
 import { useState } from "react";
 import { toast } from "sonner";
+import { TweetCardFooterButton } from "@/components/molecules/TweetCardFooterButton";
 
 type CommentFormProps = {
   tweet: Tweet;
 };
 
 export const CommentForm: React.FC<CommentFormProps> = ({ tweet }) => {
+  const { id, engagement } = tweet;
   const { currentUser } = useCurrentUser();
   const [open, setOpen] = useState(false);
 
@@ -42,7 +43,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ tweet }) => {
 
   const handleSubmit = async ({ content }: CommentFormSchema) => {
     try {
-      await createComment(tweet.id, content);
+      await createComment(id, content);
       toast.success("コメントしました");
       form.reset();
     } catch {
@@ -59,11 +60,13 @@ export const CommentForm: React.FC<CommentFormProps> = ({ tweet }) => {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <TweetCardFooterIcon
-          className="hover:bg-sky-500/20 hover:text-sky-400"
-          icon={<MessageCircle />}
+        <TweetCardFooterButton
+          className="hover:bg-sky-500/5 hover:text-sky-400"
           onClick={(e) => e.stopPropagation()}
-        />
+        >
+          <MessageCircle className="size-4" />
+          <span>{engagement.comment || ""}</span>
+        </TweetCardFooterButton>
       </DialogTrigger>
       <DialogContent>
         <CommentPreview tweet={tweet} />

@@ -6,4 +6,7 @@ export type Tweet = {
   image_url?: string;
   created_at: string;
   user: User;
+  engagement: {
+    comment: number;
+  };
 };

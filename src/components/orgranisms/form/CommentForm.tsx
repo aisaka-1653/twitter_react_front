@@ -65,7 +65,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ tweet }) => {
           onClick={(e) => e.stopPropagation()}
         >
           <MessageCircle className="size-4" />
-          <span>{engagement.comment ? engagement.comment : ""}</span>
+          <span>{engagement.comment || ""}</span>
         </TweetCardFooterButton>
       </DialogTrigger>
       <DialogContent>

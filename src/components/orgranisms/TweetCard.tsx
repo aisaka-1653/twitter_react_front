@@ -7,6 +7,8 @@ import { TweetCardFooter } from "../molecules/TweetCardFooter";
 import { TweetCardImage } from "../atoms/TweetCardImage";
 import { useNavigate } from "react-router-dom";
 import { KeyedMutator } from "swr";
+import { createRetweet } from "@/apis/retweet";
+import { toast } from "sonner";
 
 type TweetCardProps = {
   tweet: Tweet;
@@ -21,6 +23,18 @@ export const TweetCard: FC<TweetCardProps> = ({ tweet, mutate }) => {
     navigate(`/tweets/${id}`);
   };
 
+  const retweetClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      await createRetweet(id);
+      toast.success("リツイートしました");
+    } catch {
+      toast.error("リツイートに失敗しました");
+    }
+  };
+
   return (
     <div onClick={handleClick}>
       <Card className="cursor-pointer border-b-[1px] border-slate-600 hover:bg-accent/30">
@@ -33,7 +47,7 @@ export const TweetCard: FC<TweetCardProps> = ({ tweet, mutate }) => {
               <TweetCardHeader tweet={tweet} mutate={mutate} />
               <p className="whitespace-pre text-wrap break-words">{content}</p>
               <TweetCardImage imageUrl={image_url} className="my-3" />
-              <TweetCardFooter tweet={tweet} />
+              <TweetCardFooter tweet={tweet} retweetClick={retweetClick} />
             </div>
           </div>
         </CardContent>

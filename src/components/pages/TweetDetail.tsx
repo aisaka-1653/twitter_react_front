@@ -11,7 +11,7 @@ export const TweetDetail = () => {
   const { tweetId } = useParams();
   const navigate = useNavigate();
   const { tweet, isLoading, isError } = useSingleTweet(tweetId);
-  const { comments, mutate } = useAllComments(tweetId);
+  const { comments, mutate } = useAllComments("tweet", tweetId);
 
   const handleClick = () => {
     navigate(-1);
@@ -34,7 +34,7 @@ export const TweetDetail = () => {
         <ReplyForm tweetId={tweetId} mutate={mutate} />
       </div>
       {comments?.map((comment) => (
-        <CommentCard key={comment.id} comment={comment} />
+        <CommentCard key={comment.id} comment={comment} mutate={mutate} />
       ))}
     </div>
   );

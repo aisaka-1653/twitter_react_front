@@ -2,7 +2,9 @@ import { fetcher } from "@/apis/apiClient";
 import { Comment } from "@/types/comment";
 import useSWR, { KeyedMutator, SWRResponse } from "swr";
 
-type useAllCommentsReturn = {
+type CommentType = "tweet" | "user";
+
+type UseAllCommentsReturn = {
   comments: Array<Comment> | undefined;
   isLoading: boolean;
   isError: boolean;
@@ -10,15 +12,27 @@ type useAllCommentsReturn = {
 };
 
 export const useAllComments = (
-  tweetId: string | undefined,
-): useAllCommentsReturn => {
+  type: CommentType,
+  id?: string,
+): UseAllCommentsReturn => {
+  const getCommentsUrl = (type: CommentType, id?: string) => {
+    if (!id) return null;
+
+    const paths = {
+      tweet: `/tweets/${id}/comments`,
+      user: `/users/${id}/comments`,
+    };
+
+    return paths[type];
+  };
+
   const {
     data: comments,
     error,
     isLoading,
     mutate,
   }: SWRResponse<Array<Comment>, Error> = useSWR(
-    tweetId ? `/tweets/${tweetId}/comments` : null,
+    getCommentsUrl(type, id),
     fetcher,
   );
 

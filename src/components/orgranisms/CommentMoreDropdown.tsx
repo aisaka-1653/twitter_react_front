@@ -8,39 +8,39 @@ import {
 import { Button } from "../ui/button";
 import { FC } from "react";
 import { useCurrentUser } from "@/hooks/uesCurrentUser";
-import { tweetDestroy } from "@/apis/tweet";
-import { Tweet } from "@/types/tweet";
 import { toast } from "sonner";
 import { KeyedMutator } from "swr";
+import { Comment } from "@/types/comment";
+import { commentDestroy } from "@/apis/comment";
 
-type TweetMoreDropdownProps = {
-  tweet: Tweet;
-  mutate?: KeyedMutator<any>;
+type CommentMoreDropdownProps = {
+  comment: Comment;
+  mutate?: KeyedMutator<Array<Comment>>;
 };
 
-export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({
-  tweet,
+export const CommentMoreDropdown: FC<CommentMoreDropdownProps> = ({
+  comment,
   mutate,
 }) => {
-  const { user } = tweet;
+  const { user } = comment;
   const { currentUser } = useCurrentUser();
   const isCurrentUser = currentUser?.id === user.id;
 
   const followClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    e.stopPropagation();
   };
 
-  const tweetDestroyClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const commentDestroyClick = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     e.preventDefault();
-    e.stopPropagation();
 
     try {
-      await tweetDestroy(tweet.id);
+      await commentDestroy(comment.id);
       await mutate?.();
-      toast.success("ツイートを削除しました");
-    } catch (error) {
-      toast.error("ツイートの削除に失敗しました");
+      toast.success("コメントを削除しました");
+    } catch {
+      toast.error("コメントの削除に失敗しました");
     }
   };
 
@@ -56,7 +56,7 @@ export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({
             <Button
               variant="ghost"
               className="p-0 h-5 text-red-500 hover:text-red-500"
-              onClick={tweetDestroyClick}
+              onClick={commentDestroyClick}
             >
               <Trash2 className="h-5 w-5 mr-3" />
               <span className="text-base font-bold">削除</span>

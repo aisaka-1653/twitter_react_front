@@ -7,3 +7,8 @@ export const createComment = async (
 ): Promise<AxiosResponse> => {
   return apiClient.post("/comments", { tweet_id, content });
 };
+
+export const commentDestroy = async (id: string): Promise<AxiosResponse> => {
+  return apiClient.delete(`/comments/${id}`);
+};
+

@@ -13,6 +13,7 @@ export const UserAvatar: FC<UserAvatarProps> = ({ user }) => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     navigate(`/users/${user?.id}`);
   };
 

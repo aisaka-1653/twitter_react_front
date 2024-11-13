@@ -7,8 +7,8 @@ import { TweetCardFooter } from "../molecules/TweetCardFooter";
 import { TweetCardImage } from "../atoms/TweetCardImage";
 import { useNavigate } from "react-router-dom";
 import { KeyedMutator } from "swr";
-import { createRetweet } from "@/apis/retweet";
 import { toast } from "sonner";
+import { createRetweet, destroyRetweet } from "@/apis/retweet";
 
 type TweetCardProps = {
   tweet: Tweet;
@@ -16,7 +16,10 @@ type TweetCardProps = {
 };
 
 export const TweetCard: FC<TweetCardProps> = ({ tweet, mutate }) => {
-  const { user, id, content, image_url } = tweet;
+  const { user, id, content, image_url, engagement } = tweet;
+  const {
+    retweet: { retweeted },
+  } = engagement;
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -28,10 +31,20 @@ export const TweetCard: FC<TweetCardProps> = ({ tweet, mutate }) => {
     e.stopPropagation();
 
     try {
-      await createRetweet(id);
-      toast.success("リツイートしました");
+      if (retweeted) {
+        await destroyRetweet(id);
+        toast.success("リツイートを解除しました");
+      } else {
+        await createRetweet(id);
+        toast.success("リツイートしました");
+      }
+      await mutate();
     } catch {
-      toast.error("リツイートに失敗しました");
+      toast.error(
+        retweeted
+          ? "リツイートの解除に失敗しました"
+          : "リツイートに失敗しました",
+      );
     }
   };
 

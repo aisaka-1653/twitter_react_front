@@ -10,6 +10,9 @@ type TweetCardFooterProps = {
 
 export const TweetCardFooter: React.FC<TweetCardFooterProps> = (props) => {
   const { tweet, retweetClick } = props;
+  const {
+    engagement: { retweet },
+  } = tweet;
   const iconSize = "w-4";
 
   return (
@@ -17,9 +20,11 @@ export const TweetCardFooter: React.FC<TweetCardFooterProps> = (props) => {
       <CommentForm tweet={tweet} />
       <TweetCardFooterButton
         onClick={retweetClick}
-        className="hover:bg-green-500/5 hover:text-green-400"
+        variant="retweet"
+        isActive={retweet.retweeted}
       >
         <Repeat className={iconSize} />
+        <span>{retweet.count || ""}</span>
       </TweetCardFooterButton>
       <TweetCardFooterButton className="hover:bg-rose-500/5 hover:text-rose-400">
         <Heart className={iconSize} />

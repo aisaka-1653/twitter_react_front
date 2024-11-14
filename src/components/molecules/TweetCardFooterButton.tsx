@@ -47,7 +47,7 @@ const button = cva("flex items-center gap-1 text-muted-foreground", {
 
 type TweetCardFooterButtonProps = VariantProps<typeof button> & {
   className?: string;
-  onClick?: (e: React.MouseEvent) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>;
   children: ReactNode;
 };
 

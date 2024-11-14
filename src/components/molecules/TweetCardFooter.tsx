@@ -5,7 +5,7 @@ import { TweetCardFooterButton } from "./TweetCardFooterButton";
 
 type TweetCardFooterProps = {
   tweet: Tweet;
-  retweetClick: () => void;
+  retweetClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
 };
 
 export const TweetCardFooter: React.FC<TweetCardFooterProps> = (props) => {

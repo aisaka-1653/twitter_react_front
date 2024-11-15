@@ -8,5 +8,9 @@ export type Tweet = {
   user: User;
   engagement: {
     comment: number;
+    retweet: {
+      count: number;
+      retweeted: boolean;
+    };
   };
 };

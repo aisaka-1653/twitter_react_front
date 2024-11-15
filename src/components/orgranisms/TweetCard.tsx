@@ -7,6 +7,8 @@ import { TweetCardFooter } from "../molecules/TweetCardFooter";
 import { TweetCardImage } from "../atoms/TweetCardImage";
 import { useNavigate } from "react-router-dom";
 import { KeyedMutator } from "swr";
+import { toast } from "sonner";
+import { createRetweet, destroyRetweet } from "@/apis/retweet";
 
 type TweetCardProps = {
   tweet: Tweet;
@@ -14,11 +16,36 @@ type TweetCardProps = {
 };
 
 export const TweetCard: FC<TweetCardProps> = ({ tweet, mutate }) => {
-  const { user, id, content, image_url } = tweet;
+  const { user, id, content, image_url, engagement } = tweet;
+  const {
+    retweet: { retweeted },
+  } = engagement;
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate(`/tweets/${id}`);
+  };
+
+  const retweetClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      if (retweeted) {
+        await destroyRetweet(id);
+        toast.success("リツイートを解除しました");
+      } else {
+        await createRetweet(id);
+        toast.success("リツイートしました");
+      }
+      await mutate();
+    } catch {
+      toast.error(
+        retweeted
+          ? "リツイートの解除に失敗しました"
+          : "リツイートに失敗しました",
+      );
+    }
   };
 
   return (
@@ -33,7 +60,7 @@ export const TweetCard: FC<TweetCardProps> = ({ tweet, mutate }) => {
               <TweetCardHeader tweet={tweet} mutate={mutate} />
               <p className="whitespace-pre text-wrap break-words">{content}</p>
               <TweetCardImage imageUrl={image_url} className="my-3" />
-              <TweetCardFooter tweet={tweet} />
+              <TweetCardFooter tweet={tweet} retweetClick={retweetClick} />
             </div>
           </div>
         </CardContent>

@@ -13,6 +13,7 @@ import { Tweet } from "@/types/tweet";
 import { toast } from "sonner";
 import { KeyedMutator } from "swr";
 import { userFollow } from "@/apis/users";
+import { useFollowActions } from "@/hooks/useFollowActions";
 
 type TweetMoreDropdownProps = {
   tweet: Tweet;
@@ -29,25 +30,10 @@ export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({
   } = tweet;
   const { currentUser } = useCurrentUser();
   const isCurrentUser = currentUser?.id === user.id;
-
-  const followClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    try {
-      await userFollow(user.id);
-      toast.success("フォローしました");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const unfollowClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    console.log("フォロー解除");
-  };
+  const { isFollow, handleFollowClick, handleUnfollowClick } = useFollowActions(
+    user.id,
+    following,
+  );
 
   const tweetDestroyClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -82,11 +68,11 @@ export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({
           </DropdownMenuItem>
         ) : (
           <DropdownMenuItem className="px-4 py-3 hover:bg-accent hover:text-accent-foreground cursor-pointer">
-            {following ? (
+            {isFollow ? (
               <Button
                 variant="ghost"
                 className="p-0 h-5"
-                onClick={unfollowClick}
+                onClick={handleUnfollowClick}
               >
                 <UserX className="h-5 w-5 mr-3" />
                 <span className="font-bold">
@@ -94,7 +80,11 @@ export const TweetMoreDropdown: FC<TweetMoreDropdownProps> = ({
                 </span>
               </Button>
             ) : (
-              <Button variant="ghost" className="p-0 h-5" onClick={followClick}>
+              <Button
+                variant="ghost"
+                className="p-0 h-5"
+                onClick={handleFollowClick}
+              >
                 <UserPlus className="h-5 w-5 mr-3" />
                 <span className="font-bold">
                   {`@${user.username}さんをフォロー`}

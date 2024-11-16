@@ -7,6 +7,7 @@ export type Tweet = {
   created_at: string;
   user: User;
   engagement: {
+    following: boolean;
     comment: number;
     retweet: {
       count: number;

@@ -1,7 +1,7 @@
 import { Tweet } from "./tweet";
 
 export type UserProfile = {
-  id: number;
+  id: string;
   email: string;
   display_name: string;
   username: string;
@@ -16,7 +16,7 @@ export type UserProfile = {
 };
 
 export type User = {
-  id: number;
+  id: string;
   display_name: string;
   username: string;
   avatar_url: string;

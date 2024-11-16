@@ -13,6 +13,7 @@ export type UserProfile = {
   date_of_birth: string;
   uid: string;
   tweets: Array<Tweet>;
+  following: boolean;
 };
 
 export type User = {

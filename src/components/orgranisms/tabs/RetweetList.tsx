@@ -1,6 +1,6 @@
 import { TabsContent } from "../../ui/tabs";
 import { Loader2 } from "lucide-react";
-import { useAllRetweets } from "@/hooks/useAllRetweets";
+import { useUserInteraction } from "@/hooks/useAllRetweets";
 import { TweetCard } from "../TweetCard";
 
 type RetweetListProps = {
@@ -8,7 +8,12 @@ type RetweetListProps = {
 };
 
 export const RetweetList: React.FC<RetweetListProps> = ({ userId }) => {
-  const { retweets, isLoading, isError, mutate } = useAllRetweets(userId);
+  const {
+    data: retweets,
+    isLoading,
+    isError,
+    mutate,
+  } = useUserInteraction(userId, "retweet");
   if (!retweets || isError) return null;
 
   return (

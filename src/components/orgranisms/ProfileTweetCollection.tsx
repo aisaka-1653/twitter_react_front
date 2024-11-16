@@ -1,5 +1,6 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { CommentList } from "./tabs/CommentList";
+import { LikeList } from "./tabs/LikeList";
 import { RetweetList } from "./tabs/RetweetList";
 import { TweetList } from "./tabs/TweetList";
 
@@ -23,7 +24,7 @@ export const ProfileTweetCollection: React.FC<ProfileTweetCollection> = ({
       <TweetList userId={userId} />
       <CommentList userId={userId} />
       <RetweetList userId={userId} />
-      <TabsContent value="like"></TabsContent>
+      <LikeList userId={userId} />
     </Tabs>
   );
 };

@@ -6,7 +6,7 @@ export const useTweetInteraction = (
   id: string,
   type: InteractionType,
   isActive: boolean,
-  mutate: () => Promise<void>,
+  mutate?: () => Promise<void>,
 ) => {
   const config = INTERACTION_CONFIGS[type];
   const endpoint = `/tweets/${id}/${config.endpoint}`;
@@ -23,7 +23,7 @@ export const useTweetInteraction = (
         await apiClient.post(endpoint);
         toast.success(config.messages.success.create);
       }
-      await mutate();
+      await mutate?.();
     } catch {
       toast.error(
         isActive ? config.messages.error.destroy : config.messages.error.create,

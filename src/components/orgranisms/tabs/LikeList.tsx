@@ -3,28 +3,28 @@ import { Loader2 } from "lucide-react";
 import { useUserInteraction } from "@/hooks/useAllRetweets";
 import { TweetCard } from "../TweetCard";
 
-type RetweetListProps = {
+type LikeListProps = {
   userId: string;
 };
 
-export const RetweetList: React.FC<RetweetListProps> = ({ userId }) => {
+export const LikeList: React.FC<LikeListProps> = ({ userId }) => {
   const {
-    data: retweets,
+    data: likes,
     isLoading,
     isError,
     mutate,
-  } = useUserInteraction(userId, "retweet");
-  if (!retweets || isError) return null;
+  } = useUserInteraction(userId, "like");
+  if (!likes || isError) return null;
 
   return (
-    <TabsContent value="retweet">
+    <TabsContent value="like">
       {isLoading ? (
         <div className="flex items-start justify-center min-h-screen pt-5">
           <Loader2 className="size-6 animate-spin" />
         </div>
       ) : (
-        retweets?.map((retweet) => (
-          <TweetCard key={retweet.id} tweet={retweet} mutate={mutate} />
+        likes?.map((like) => (
+          <TweetCard key={like.id} tweet={like} mutate={mutate} />
         ))
       )}
     </TabsContent>

@@ -1,24 +1,18 @@
 import { fetcher } from "@/apis/apiClient";
 import { Tweet } from "@/types/tweet";
-import useSWR, { KeyedMutator, SWRResponse } from "swr";
+import { INTERACTION_CONFIGS, InteractionType } from "@/types/interaction";
+import useSWR, { SWRResponse } from "swr";
 
-type UseAllRetweetsReturn = {
-  retweets: Array<Tweet> | undefined;
-  isLoading: boolean;
-  isError: boolean;
-  mutate: KeyedMutator<Array<Tweet>>;
-};
+export const useUserInteraction = (id: string, type: InteractionType) => {
+  const config = INTERACTION_CONFIGS[type];
+  const endpoint = `/users/${id}/${config.endpoint}`;
 
-export const useAllRetweets = (id: string): UseAllRetweetsReturn => {
   const {
-    data: retweets,
+    data,
     error,
     isLoading,
     mutate,
-  }: SWRResponse<Array<Tweet>, Error> = useSWR(
-    `/users/${id}/retweets`,
-    fetcher,
-  );
+  }: SWRResponse<Array<Tweet>, Error> = useSWR(endpoint, fetcher);
 
-  return { retweets, isLoading, isError: !!error, mutate };
+  return { data, isLoading, isError: !!error, mutate };
 };

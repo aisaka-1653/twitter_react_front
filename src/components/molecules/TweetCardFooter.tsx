@@ -6,12 +6,13 @@ import { TweetCardFooterButton } from "./TweetCardFooterButton";
 type TweetCardFooterProps = {
   tweet: Tweet;
   retweetClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
+  likeClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
 };
 
 export const TweetCardFooter: React.FC<TweetCardFooterProps> = (props) => {
-  const { tweet, retweetClick } = props;
+  const { tweet, retweetClick, likeClick } = props;
   const {
-    engagement: { retweet },
+    engagement: { retweet, like },
   } = tweet;
   const iconSize = "w-4";
 
@@ -26,8 +27,13 @@ export const TweetCardFooter: React.FC<TweetCardFooterProps> = (props) => {
         <Repeat className={iconSize} />
         <span>{retweet.count || ""}</span>
       </TweetCardFooterButton>
-      <TweetCardFooterButton className="hover:bg-rose-500/5 hover:text-rose-400">
+      <TweetCardFooterButton
+        onClick={likeClick}
+        variant="like"
+        isActive={like.liked}
+      >
         <Heart className={iconSize} />
+        <span>{like.count || ""}</span>
       </TweetCardFooterButton>
       <TweetCardFooterButton className="hover:bg-amber-500/5 hover:text-amber-400">
         <Bookmark className={iconSize} />

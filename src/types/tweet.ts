@@ -12,5 +12,9 @@ export type Tweet = {
       count: number;
       retweeted: boolean;
     };
+    like: {
+      count: number;
+      liked: boolean;
+    };
   };
 };

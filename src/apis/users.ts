@@ -31,3 +31,7 @@ export const logout = async (): Promise<AxiosResponse> => {
 export const userFollow = async (userId: string): Promise<AxiosResponse> => {
   return apiClient.post(`/users/${userId}/follow`);
 };
+
+export const userUnfollow = async (userId: string): Promise<AxiosResponse> => {
+  return apiClient.delete(`/users/${userId}/unfollow`);
+};

@@ -1,4 +1,4 @@
-import { userFollow } from "@/apis/users";
+import { userFollow, userUnfollow } from "@/apis/users";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -23,7 +23,13 @@ export const useFollowActions = (userId: string, following: boolean) => {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log("フォロー解除");
+    try {
+      await userUnfollow(userId);
+      toast.success("フォローを解除しました");
+      setIsFollow(false);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
   };
 
   return {

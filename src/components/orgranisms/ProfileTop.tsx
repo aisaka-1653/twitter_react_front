@@ -9,7 +9,7 @@ type ProfileHeaderProps = {
 };
 
 export const ProfileTop: React.FC<ProfileHeaderProps> = ({ user }) => {
-  const { id, avatar_url, header_url } = user;
+  const { id, avatar_url, header_url, following } = user;
   const { currentUser } = useCurrentUser();
 
   return (
@@ -33,7 +33,7 @@ export const ProfileTop: React.FC<ProfileHeaderProps> = ({ user }) => {
         {currentUser?.id === id ? (
           <ProfileEditForm user={user} />
         ) : (
-          <ProfileActionbar />
+          <ProfileActionbar following={following} userId={id} />
         )}
       </div>
     </div>

@@ -5,14 +5,26 @@ import { TweetCardFooter } from "../molecules/TweetCardFooter";
 import { TweetCardImage } from "../atoms/TweetCardImage";
 import { TweetDetailCardHeader } from "../molecules/TweetDetailCardHeader";
 import { formatTweetTimestamp } from "@/utils/dateTimeUtils";
+import { useTweetInteraction } from "@/hooks/useTweetInteraction";
 
 type TweetCardProps = {
   tweet: Tweet;
 };
 
 export const TweetDetailCard: FC<TweetCardProps> = ({ tweet }) => {
-  const { content, image_url, created_at } = tweet;
+  const { id, content, image_url, created_at, engagement } = tweet;
+  const {
+    retweet: { retweeted },
+    like: { liked },
+  } = engagement;
   const formattedDate = formatTweetTimestamp(created_at);
+
+  const { handleClick: retweetClick } = useTweetInteraction(
+    id,
+    "retweet",
+    retweeted,
+  );
+  const { handleClick: likeClick } = useTweetInteraction(id, "like", liked);
 
   return (
     <Card>
@@ -28,7 +40,11 @@ export const TweetDetailCard: FC<TweetCardProps> = ({ tweet }) => {
               {formattedDate}
             </p>
             <div className="border-y-[1px] border-slate-800">
-              <TweetCardFooter tweet={tweet} />
+              <TweetCardFooter
+                tweet={tweet}
+                retweetClick={retweetClick}
+                likeClick={likeClick}
+              />
             </div>
           </div>
         </div>

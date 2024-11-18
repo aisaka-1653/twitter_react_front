@@ -1,6 +1,6 @@
 import { TabsContent } from "../../ui/tabs";
 import { Loader2 } from "lucide-react";
-import { useUserInteraction } from "@/hooks/useAllRetweets";
+import { useUserInteraction } from "@/hooks/useUserInteraction";
 import { TweetCard } from "../TweetCard";
 
 type LikeListProps = {

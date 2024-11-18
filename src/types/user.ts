@@ -1,7 +1,7 @@
 import { Tweet } from "./tweet";
 
 export type UserProfile = {
-  id: number;
+  id: string;
   email: string;
   display_name: string;
   username: string;
@@ -13,10 +13,11 @@ export type UserProfile = {
   date_of_birth: string;
   uid: string;
   tweets: Array<Tweet>;
+  following: boolean;
 };
 
 export type User = {
-  id: number;
+  id: string;
   display_name: string;
   username: string;
   avatar_url: string;

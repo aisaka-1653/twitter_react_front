@@ -27,3 +27,7 @@ export const login = async (user: LoginProps): Promise<AxiosResponse> => {
 export const logout = async (): Promise<AxiosResponse> => {
   return apiClient.delete("/users/sign_out");
 };
+
+export const userFollow = async (userId: string): Promise<AxiosResponse> => {
+  return apiClient.post(`/users/${userId}/follow`);
+};
